@@ -1,0 +1,1 @@
+web: gunicorn brent_random_wisdom_blog.wsgi
