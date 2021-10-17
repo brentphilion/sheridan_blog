@@ -15,7 +15,16 @@ class Post(models.Model):
         (PUBLISHED, 'Published')
     ]
     title = models.CharField(max_length=255)
+    slug = models.SlugField(
+        null=True,
+        unique_for_date='published',
+    )
     content = models.TextField()
+    published = models.DateTimeField(
+        null=True,
+        blank=True,
+        help_text='The date & time this article was published',
+    )
     created = models.DateTimeField(auto_now_add=True)  #sets on create
     updated = models.DateTimeField(auto_now=True)  #Updates on save
 
@@ -23,29 +32,20 @@ class Post(models.Model):
         settings.AUTH_USER_MODEL,  # Django auth user model
         on_delete=models.PROTECT,  # prevents deletion
         related_name='blog_posts', # the name that appears on the user model
-        null=False
+        null=True
     )
 
-    published = models.DateTimeField(
-        null=True,
-        blank=True,
-        help_text='The date & time this article was published',
-    )
+
     status = models.CharField(
         max_length=10,
         choices=STATUS_CHOICES,
         default=DRAFT,
         help_text='Set to "published" to make this post publicly visible'
-        )
-
-    slug = models.SlugField(
-        null=False,
-        help_text='The date & time this article was published',
-        unique_for_date='published',  # Slug is unique for publication date
-        )
+    )
 
     class Meta:
         ordering = ['-created']
+
         #sort by created in descending order
 
     def __str__(self):
