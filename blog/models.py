@@ -16,7 +16,7 @@ class Post(models.Model):
     ]
     title = models.CharField(max_length=255)
     slug = models.SlugField(
-        null=True,
+        null=False,
         unique_for_date='published',
     )
     content = models.TextField()
@@ -32,7 +32,7 @@ class Post(models.Model):
         settings.AUTH_USER_MODEL,  # Django auth user model
         on_delete=models.PROTECT,  # prevents deletion
         related_name='blog_posts', # the name that appears on the user model
-        null=True
+        null=False
     )
 
 
