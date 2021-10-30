@@ -12,6 +12,8 @@ class PostAdmin(admin.ModelAdmin):
         'status',
     )
     prepopulated_fields = {'slug': ('title',)}
+# Register your models here.
+admin.site.register(models.Post, PostAdmin)
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
@@ -22,6 +24,3 @@ class CommentAdmin(admin.ModelAdmin):
 
     def approve_comments(self, request, queryset):
         queryset.update(active=True)
-
-# Register your models here.
-admin.site.register(models.Post, PostAdmin, Comment, CommentAdmin)
