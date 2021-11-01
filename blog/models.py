@@ -53,6 +53,9 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
+    """
+    Comment model adding ocmments to posts
+    """
     post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
     name = models.CharField(max_length=75)
     email = models.EmailField()
